@@ -14,7 +14,6 @@ class MethodChannelGpsRequester extends GpsRequesterPlatform {
   @override
   Future<bool> requestLocationService() async {
     final result = await methodChannel.invokeMethod('requestService');
-    log('result: $result');
     return result == 1;
   }
 
