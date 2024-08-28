@@ -113,7 +113,7 @@ class GpsRequesterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware, Acti
             return
         }
 
-        // Add ActivityResultListener here
+        // Add ActivityResultListener
         mActivityBinding?.addActivityResultListener(this)
         requestServiceResult = result
         settingsClient?.checkLocationSettings(locationSettingsRequest!!)?.addOnFailureListener(
@@ -122,8 +122,8 @@ class GpsRequesterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware, Acti
             if (e is ResolvableApiException) {
                 val rae: ResolvableApiException = e
                 when (rae.statusCode) {
-                    // Show the dialog by calling startResolutionForResult(), and check the
-                    // result in onActivityResult().
+                    // Show the dialog by calling startResolutionForResult(),
+                    // and check the result in onActivityResult().
                     LocationSettingsStatusCodes.RESOLUTION_REQUIRED -> try {
                         rae.startResolutionForResult(currentActivity, GPS_ENABLE_REQUEST)
                     } catch (sie: IntentSender.SendIntentException) {
