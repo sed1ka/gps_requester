@@ -35,7 +35,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.example.gps_requester
+        package: com.sed1ka.gps_reqiester
         pluginClass: GpsRequesterPlugin
 
   # To add assets to your plugin package, add an assets section, like this:

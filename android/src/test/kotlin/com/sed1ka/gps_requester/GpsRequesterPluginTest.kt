@@ -1,4 +1,4 @@
-package com.example.gps_requester
+package com.sed1ka.gps_requester
 
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
