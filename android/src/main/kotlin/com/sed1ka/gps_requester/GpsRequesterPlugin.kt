@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.IntentSender
 import android.location.LocationManager
 import android.os.Build
-import android.util.Log
 
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.LocationRequest
@@ -60,8 +59,6 @@ class GpsRequesterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware, Acti
         val gpsEnabled: Boolean = locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
         val networkEnabled: Boolean =
             locManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
-        Log.d("gps_requester", "gpsEnabled: $gpsEnabled")
-        Log.d("gps_requester", "networkEnabled: $networkEnabled")
         return gpsEnabled || networkEnabled
     }
 
