@@ -28,13 +28,13 @@ class GpsRequesterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware, Acti
     private lateinit var channel: MethodChannel
 
     private var activity: Activity? = null
+    private var activityBinding: ActivityPluginBinding? = null
     private var settingsClient: SettingsClient? = null
     private var requestServiceResult: Result? = null
     private var locationRequest: LocationRequest? = null
     private var locationSettingsRequest: LocationSettingsRequest? = null
     private var locationManager: LocationManager? = null
 
-    private var mActivityBinding: ActivityPluginBinding? = null
 
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, "gps_requester")
@@ -111,7 +111,7 @@ class GpsRequesterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware, Acti
         }
 
         // Add ActivityResultListener
-        mActivityBinding?.addActivityResultListener(this)
+        activityBinding?.addActivityResultListener(this)
         requestServiceResult = result
         settingsClient?.checkLocationSettings(locationSettingsRequest!!)?.addOnFailureListener(
             currentActivity
@@ -155,7 +155,7 @@ class GpsRequesterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware, Acti
                     requestServiceResult?.success(0)
                 }
                 requestServiceResult = null
-                mActivityBinding?.removeActivityResultListener(this)
+                activityBinding?.removeActivityResultListener(this)
                 return true
             }
 
@@ -165,27 +165,27 @@ class GpsRequesterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware, Acti
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         channel.setMethodCallHandler(null)
-        mActivityBinding?.removeActivityResultListener(this)
+        activityBinding?.removeActivityResultListener(this)
     }
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         activity = binding.activity
-        mActivityBinding = binding
+        activityBinding = binding
     }
 
     override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
         activity = binding.activity
-        mActivityBinding = binding
+        activityBinding = binding
     }
 
     override fun onDetachedFromActivityForConfigChanges() {
         activity = null
-        mActivityBinding?.removeActivityResultListener(this)
+        activityBinding?.removeActivityResultListener(this)
     }
 
     override fun onDetachedFromActivity() {
         activity = null
-        mActivityBinding?.removeActivityResultListener(this)
+        activityBinding?.removeActivityResultListener(this)
     }
 
     companion object {
